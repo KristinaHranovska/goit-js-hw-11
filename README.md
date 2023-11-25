@@ -104,6 +104,7 @@
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
   allowfullscreen
 ></iframe>
+```
 
 Замість банального тексту, як це реалізовано в демовідео, можна використовувати
 бібліотеку з гарними індикаторами завантаження, наприклад,
@@ -111,4 +112,3 @@
 використання цієї бібліотеки є в
 [README.md](https://github.com/vineethtrv/css-loader/blob/master/README.md)
 їхнього репозиторію.
-```
