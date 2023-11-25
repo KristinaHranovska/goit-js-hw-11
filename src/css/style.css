@@ -126,6 +126,10 @@ body {
     cursor: zoom-in;
 }
 
+.gallery-image {
+    height: 250px;
+}
+
 .thumb-block {
     display: flex;
     gap: 10px;

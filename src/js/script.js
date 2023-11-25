@@ -49,6 +49,10 @@ function getPictures(name) {
   const BASE_URL = 'https://pixabay.com/api/';
   const KEY = '40891115-11d0b88dd3a60afc830d1d27f';
 
+  if (name.includes(' ')) {
+    name.replace(/\s+/g, '+');
+  }
+
   const searchParams = new URLSearchParams({
     key: KEY,
     q: name,
@@ -67,14 +71,14 @@ function getPictures(name) {
 }
 
 function createMarkup(arr) {
-  return arr.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `<li class="gallery-item">
+  return arr.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) =>
+    `<li class="gallery-item">
           <a class="gallery-link" href="${largeImageURL}">
             <img
               class="gallery-image"
               src="${webformatURL}"
               alt="${tags}"
-              width="400"
-              height="200"
+              width="360"
             />
           </a>
           <div class="thumb-block">
