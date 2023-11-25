@@ -11,76 +11,90 @@ loader.style.display = 'none';
 formSearch.addEventListener('submit', onSearch);
 
 function onSearch(event) {
-    event.preventDefault();
-    listImages.innerHTML = '';
-    loader.style.display = 'block';
+  event.preventDefault();
+  listImages.innerHTML = '';
+  loader.style.display = 'block';
 
-    const inputValue = event.target.elements.search.value;
+  const inputValue = event.target.elements.search.value;
 
-    getPictures(inputValue)
-        .then(data => {
-            loader.style.display = 'none';
+  getPictures(inputValue)
+    .then(data => {
+      loader.style.display = 'none';
 
-            if (!data.hits.length) {
-                iziToast.error({
-                    title: 'Error',
-                    message: 'Sorry, there are no images matching your search query. Please try again!',
-                });
-            }
-
-            listImages.innerHTML = ("beforeend", createMarkup(data.hits));
-            const refreshPage = new SimpleLightbox('.gallery a', {
-                captions: true,
-                captionsData: 'alt',
-                captionDelay: 250,
-            });
-            refreshPage.refresh();
-        })
-        .catch((err) => {
-            loader.style.display = 'none';
-            console.log(err);
+      if (!data.hits.length) {
+        iziToast.error({
+          title: 'Error',
+          message: 'Sorry, there are no images matching your search query. Please try again!',
         });
+      }
+
+      listImages.innerHTML = ("beforeend", createMarkup(data.hits));
+
+      const refreshPage = new SimpleLightbox('.gallery a', {
+        captions: true,
+        captionsData: 'alt',
+        captionDelay: 250,
+      });
+      refreshPage.refresh();
+
+      formSearch.reset();
+    })
+    .catch((err) => {
+      loader.style.display = 'none';
+      console.log(err);
+    });
 }
 
 function getPictures(name) {
-    const BASE_URL = 'https://pixabay.com/api/';
-    const KEY = '40891115-11d0b88dd3a60afc830d1d27f';
+  const BASE_URL = 'https://pixabay.com/api/';
+  const KEY = '40891115-11d0b88dd3a60afc830d1d27f';
 
-    const searchParams = new URLSearchParams({
-        key: KEY,
-        q: name,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
+  const searchParams = new URLSearchParams({
+    key: KEY,
+    q: name,
+    image_type: 'photo',
+    orientation: 'horizontal',
+    safesearch: true,
+  })
+
+  return fetch(`${BASE_URL}?${searchParams}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
     })
-
-    return fetch(`${BASE_URL}?${searchParams}`)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error(res.statusText);
-            }
-            return res.json();
-        })
 }
 
 function createMarkup(arr) {
-    return arr.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `<li class="gallery-item">
-        <a class="gallery-link" href="${largeImageURL}">
+  return arr.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `<li class="gallery-item">
+          <a class="gallery-link" href="${largeImageURL}">
             <img
-                class="gallery-image"
-                src="${webformatURL}"
-                alt="${tags}"
-                width='360'
+              class="gallery-image"
+              src="${webformatURL}"
+              alt="${tags}"
+              width="400"
+              height="200"
             />
-        </a>
-        <h2>Likes</h2>
-        <p>${likes}</p>
-        <h2>Views</h2>
-        <p>${views}</p>
-        <h2>Comments</h2>
-        <p>${comments}</p>
-        <h2>Downloads</h2>
-        <p>${downloads}</p>
-    </li>`)
-        .join('');
+          </a>
+          <div class="thumb-block">
+            <div class="block">
+              <h2 class="tittle">Likes</h2>
+              <p class="amount">${likes}</p>
+            </div>
+            <div class="block">
+              <h2 class="tittle">Views</h2>
+              <p class="amount">${views}</p>
+            </div>
+            <div class="block">
+              <h2 class="tittle">Comments</h2>
+              <p class="amount">${comments}</p>
+            </div>
+            <div class="block">
+              <h2 class="tittle">Downloads</h2>
+              <p class="amount">${downloads}</p>
+            </div>
+          </div>
+        </li>`)
+    .join('');
 }
