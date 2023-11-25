@@ -4,20 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home-work 11</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/modern-normalize@2.0.0/modern-normalize.min.css"
+    />
+
     
     
     <script type="module" crossorigin src="/vanilla-app-template/commonHelpers.js"></script>
     <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/vendor-46aac873.js">
     <link rel="stylesheet" href="/vanilla-app-template/assets/vendor-eb6030bc.css">
-    <link rel="stylesheet" href="/vanilla-app-template/assets/index-a0a411f2.css">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/index-8be984ab.css">
   </head>
   <body>
-    <form class="js-search">
-      <input name="search" type="text" />
-      <button type="submit">Search</button>
+    <form class="js-search search">
+      <input class="input-search" name="search" type="text" />
+      <button class="btn-search" type="submit">Search</button>
     </form>
-    <span class="loader"></span>
-    <ul class="gallery"></ul>
+    <div class="container">
+      <span class="loader"></span>
+      <ul class="gallery"></ul>
+    </div>
 
     
   </body>
