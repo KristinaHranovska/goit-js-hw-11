@@ -92,9 +92,23 @@
 зображень з бекенду. Завантажувач має з’являтися прямо перед початком HTTP
 запиту та зникати після того, як запит завершився.
 
+Подивись демовідео роботи застосунку на цьому етапі.
+
+```html
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/o981M1AqZ1s?si=ca9dXSKh19G8ji_L"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
+
 Замість банального тексту, як це реалізовано в демовідео, можна використовувати
 бібліотеку з гарними індикаторами завантаження, наприклад,
 [css-loader](https://github.com/vineethtrv/css-loader). Відеоінструкція з
 використання цієї бібліотеки є в
 [README.md](https://github.com/vineethtrv/css-loader/blob/master/README.md)
 їхнього репозиторію.
+```
