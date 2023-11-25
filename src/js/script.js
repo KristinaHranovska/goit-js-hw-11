@@ -5,17 +5,22 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 const formSearch = document.querySelector('.js-search');
 const listImages = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
 
+loader.style.display = 'none';
 formSearch.addEventListener('submit', onSearch);
 
 function onSearch(event) {
     event.preventDefault();
     listImages.innerHTML = '';
+    loader.style.display = 'block';
 
     const inputValue = event.target.elements.search.value;
 
     getPictures(inputValue)
         .then(data => {
+            loader.style.display = 'none';
+
             if (!data.hits.length) {
                 iziToast.error({
                     title: 'Error',
@@ -24,14 +29,17 @@ function onSearch(event) {
             }
 
             listImages.innerHTML = ("beforeend", createMarkup(data.hits));
-            new SimpleLightbox('.gallery a', {
+            const refreshPage = new SimpleLightbox('.gallery a', {
                 captions: true,
                 captionsData: 'alt',
                 captionDelay: 250,
             });
-            gallery.refresh();
+            refreshPage.refresh();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            loader.style.display = 'none';
+            console.log(err);
+        });
 }
 
 function getPictures(name) {
@@ -48,7 +56,6 @@ function getPictures(name) {
 
     return fetch(`${BASE_URL}?${searchParams}`)
         .then(res => {
-            console.log(`${BASE_URL}?${searchParams}`);
             if (!res.ok) {
                 throw new Error(res.statusText);
             }
